@@ -130,6 +130,7 @@ int main() {
     List* head[2] = {};
     int n = getint(), i;
     for(i = 0; i < n; i++) {
+        printf("Enter name: ");
         char* name = getString();
         head[i>=n/2] = addNode(head[i>=n/2], name[0], i);
         free(name);
