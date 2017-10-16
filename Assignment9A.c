@@ -19,8 +19,7 @@ int isNeighbour(int a[26], int b[26]) {
         if(a[i] > b[i]) more += a[i] - b[i];
         else if (a[i] < b[i]) less += b[i] - a[i];
     }
-    if(more == 1 && !less) return 1;
-    if(less == 1 && !more) return 1;
+    if(more == 1 && less == 1) return 1;
     return (!more && !less);
 }
 // DSU
