@@ -1,44 +1,21 @@
 #include "stdio.h"
 #include "stdlib.h"
 #include "string.h"
-
-int dp[100][100];
+#include "math.h"
 // return min of two numbers
 int min(int a, int b) {
 	return a < b ? a : b;
 }
-// finds edit distance between two strings.
-int editDistance(char a[100], char b[100]) {
-	int n = strlen(a), m = strlen(b), i, j;
-	// base
-	dp[0][0] = 0;
-	for(i = 1; i <= n; i++) {
-		dp[i][0] = i;
-	}
-	for(j = 1; j <= m; j++) {
-		dp[0][j] = j;
-	}
-	// recurrence
-	for(i = 1; i <= n; i++) {
-		for(j = 1; j <= m; j++) {
-			if(a[i-1] == b[j-1])
-				dp[i][j] = dp[i-1][j-1];
-			else dp[i][j] = 1 + min(dp[i-1][j-1], min(dp[i][j-1], dp[i-1][j]));
-		}
-	}
-	return dp[n][m];
-}
-// dist stores edit distance
-int n, i, j, k, dist[100][100];
+
+int n, i, m, j, k;
 // shortest is length of shortes path, nxt is used to reconstruct shortest path
-double traffic[100][100], shortest[100][100], nxt[100][100];
-char name[100][100];
+double x[100], y[100], shortest[100][100], nxt[100][100];
 // prints shortest path from u to v
 void printPath(int u, int v) {
-	printf("Path from %s to %s with time %lf: %s ", name[u], name[v], shortest[u][v], name[u]);
+	printf("Path from %d to %d with time %lf: %d ", 1 + u, 1 + v, shortest[u][v], 1 + u);
 	while(u != v)  {
 		u = nxt[u][v];
-		printf("%s ", name[u]);
+		printf("%d ", 1 + u);
 	}
 	printf("\n");
 }
@@ -47,23 +24,28 @@ int main() {
 	// get input
 	printf("Enter number of localities: ");
 	scanf("%d", &n);
-	for(i = 0 ; i < n; i ++) {
-		printf("Enter name of locality #%d: ", i);
-		scanf("%s", name[i]);
-	}
 	// reset
 	memset(nxt, -1, sizeof nxt);
-	memset(shortest, 63, sizeof shortest);
-	// get traffic matrix 
 	for(i = 0 ; i < n; i++) {
-		printf("Enter values of traffic for #%d: ", i);
-		shortest[i][i] = 0;
 		for(j = 0; j < n; j++) {
-			scanf("%lf", traffic[i] + j);
-			dist[i][j] = editDistance(name[i], name[j]);
-			shortest[i][j] = dist[i][j] * traffic[i][j];
-			nxt[i][j] = j;
+			shortest[i][j] = 1e9;
 		}
+	}
+	for(i = 0 ; i < n; i ++) {
+		shortest[i][i] = 0;
+		printf("Enter coordinates of locality #%d: ", i + 1);
+		scanf("%lf %lf", x + i, y + i);
+	}
+	// get edges 
+	printf("Enter number of edges: ");
+	scanf("%d", &m); 
+	while(m--) {
+		printf("Enter directed edge from i to j with traffic t -- i j t: ");
+		int i, j; double traffic;
+		scanf("%d %d %lf", &i, &j, &traffic);
+		i--; j--;
+		shortest[i][j] = pow(pow(x[i] - x[j], 2) + pow(y[i] - y[j], 2), 0.5) * traffic;
+		nxt[i][j] = j;
 	}
 	// floyd warshall
 	for(k = 0; k < n; k++) {
@@ -96,7 +78,7 @@ int main() {
 		// if we can build a new dominos
 		if(curBest == -1)
 			break;
-		printf("\nSetup a dominos at %s\n", name[curBest]);
+		printf("\nSetup a dominos at %d\n", curBest + 1);
 		for(j = 0; j < n; j++) {
 			if(!done[j] && shortest[curBest][j] <= 30) {
 				printPath(curBest, j);
