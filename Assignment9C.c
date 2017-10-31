@@ -40,7 +40,7 @@ int main() {
 	printf("Enter number of edges: ");
 	scanf("%d", &m); 
 	while(m--) {
-		printf("Enter directed edge from i to j with traffic t -- i j t: ");
+		printf("Enter directed edge from i to j with traffic t -- i j t (1-indexed): ");
 		int i, j; double traffic;
 		scanf("%d %d %lf", &i, &j, &traffic);
 		i--; j--;
@@ -59,7 +59,7 @@ int main() {
 		}
 	}
 	// greedy strategy
-	int done[100] = {}; // stores if we have already a dominos for this location.
+	int done[100] = {}; // stores if we have already a dominos that can reach this location.
 	while(1) {
 		int curBest = -1, bestVal = 0;
 		for(i = 0; i < n; i++) {

@@ -1,0 +1,14 @@
+#IncludeRegexLine: ^[ 	]*[#%][ 	]*(include|import)[ 	]*[<"]([^">]+)([">])
+
+#IncludeRegexScan: ^.*$
+
+#IncludeRegexComplain: ^$
+
+#IncludeRegexTransform: 
+
+/mnt/DATA/Code/CS205/Assign4B.c
+stdio.h
+/mnt/DATA/Code/CS205/stdio.h
+string.h
+/mnt/DATA/Code/CS205/string.h
+
