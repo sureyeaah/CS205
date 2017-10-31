@@ -1,4 +1,0 @@
-/mnt/DATA/Code/CS205/cmake-build-debug/CMakeFiles/rebuild_cache.dir
-/mnt/DATA/Code/CS205/cmake-build-debug/CMakeFiles/edit_cache.dir
-/mnt/DATA/Code/CS205/cmake-build-debug/CMakeFiles/Assign4A.dir
-/mnt/DATA/Code/CS205/cmake-build-debug/CMakeFiles/Assign4B.dir
