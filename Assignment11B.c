@@ -3,8 +3,8 @@
 int min(int a, int b) {
 	return a < b ? a : b;
 }
-
-int n, s, t, f[100][100], path[100], c[100][100], vis[100];
+#define S 5000
+int n, s, t, f[S][S], path[S], c[S][S], vis[S];
 int dfs(int u, int ind) {	
 	path[ind] = u;
 	vis[u] = 1;
@@ -21,7 +21,7 @@ int dfs(int u, int ind) {
 int flow() {
 	int i;
 	while(1) {
-		memset(vis, 0, sizeof(int) * 100);
+		memset(vis, 0, sizeof(int) * S);
 		int pathLen = dfs(s, 0);
 		if(pathLen) {
 			int minEdge = 2e9;

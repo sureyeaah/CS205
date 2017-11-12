@@ -2,8 +2,8 @@
 #include "stdlib.h"
 #include "string.h"
 #define inf ((int)1e9)
-int par[100], u[10000], v[10000], r[10000], st, nd, dist[100];
-char loc[100][50];
+int par[6000], u[100000], v[100000], r[100000], st, nd, dist[6000];
+char loc[6000][20];
 void relax(int u, int v, int r) {
     if(dist[u] + r < dist[v]) {
         dist[v] = dist[u] + r;
@@ -19,7 +19,7 @@ void printPath(int u) {
     else printf("\n");
 }
 
-int isRelated(char x[50], char y[50]) {
+int isRelated(char x[20], char y[20]) {
 	int a = strlen(x), b = strlen(y), i, slope = b - a, cnt[26][2] = {}, val;
 	for(i = 0; i < a; i ++) {
 		val = x[i] < 'a' ? x[i] - 'A': x[i] - 'a';
@@ -38,7 +38,7 @@ int isRelated(char x[50], char y[50]) {
 	return 0;
 }
 
-int getDistance(char x[50], char y[50]) {
+int getDistance(char x[20], char y[20]) {
 	int dist = 0, a = strlen(x), b = strlen(y), i;
 	for(i = 0; i < a || i < b; i ++) {
 		dist +=abs((i < a ? (int)x[i]: 0) - (i < b ? (int)y[i]: 0));
